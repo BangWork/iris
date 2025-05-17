@@ -1,6 +1,5 @@
-//Package iris the fastest go web framework in (this) Earth.
-///NOTE: When you see 'framework' or 'station' we mean the Iris web framework's main implementation.
-//
+// Package iris the fastest go web framework in (this) Earth.
+// /NOTE: When you see 'framework' or 'station' we mean the Iris web framework's main implementation.
 //
 // Basic usage
 // ----------------------------------------------------------------------
@@ -9,15 +8,15 @@
 //
 // import  "github.com/kataras/iris"
 //
-// func main() {
-//     iris.Get("/hi_json", func(c *iris.Context) {
-//         c.JSON(200, iris.Map{
-//             "Name": "Iris",
-//             "Released":  "13 March 2016",
-//         })
-//     })
-//     iris.Listen(":8080")
-// }
+//	func main() {
+//	    iris.Get("/hi_json", func(c *iris.Context) {
+//	        c.JSON(200, iris.Map{
+//	            "Name": "Iris",
+//	            "Released":  "13 March 2016",
+//	        })
+//	    })
+//	    iris.Listen(":8080")
+//	}
 //
 // ----------------------------------------------------------------------
 //
@@ -25,23 +24,23 @@
 //
 // import  "github.com/kataras/iris"
 //
-// func main() {
-// 	s1 := iris.New()
-// 	s1.Get("/hi_json", func(c *iris.Context) {
-// 		c.JSON(200, iris.Map{
-// 			"Name": "Iris",
-// 			"Released":  "13 March 2016",
-// 		})
-// 	})
+//	func main() {
+//		s1 := iris.New()
+//		s1.Get("/hi_json", func(c *iris.Context) {
+//			c.JSON(200, iris.Map{
+//				"Name": "Iris",
+//				"Released":  "13 March 2016",
+//			})
+//		})
 //
-// 	s2 := iris.New()
-// 	s2.Get("/hi_raw_html", func(c *iris.Context) {
-// 		c.HTML(iris.StatusOK, "<b> Iris </b> welcomes <h1>you!</h1>")
-// 	})
+//		s2 := iris.New()
+//		s2.Get("/hi_raw_html", func(c *iris.Context) {
+//			c.HTML(iris.StatusOK, "<b> Iris </b> welcomes <h1>you!</h1>")
+//		})
 //
-// 	go s1.Listen(":8080")
-// 	s2.Listen(":1993")
-// }
+//		go s1.Listen(":8080")
+//		s2.Listen(":1993")
+//	}
 //
 // -----------------------------DOCUMENTATION----------------------------
 // ----------------------------_______________---------------------------
@@ -108,7 +107,9 @@ var (
 )
 
 // ResetDefault resets the iris.Default which is the instance which is used on the default iris station for
-//  iris.Get(all api functions)
+//
+//	iris.Get(all api functions)
+//
 // iris.Config
 // iris.Logger
 // iris.Plugins
@@ -471,7 +472,6 @@ func (s *Framework) Serve(ln net.Listener) error {
 		}
 		return err
 	}
-	os.Exit(1)
 	return nil
 }
 
@@ -608,7 +608,7 @@ func (s *Framework) IsRunning() bool {
 // The server will close all the incoming connections after sending
 // the first response to client if this option is set to true.
 //
-// By default keep-alive connections are enabled
+// # By default keep-alive connections are enabled
 //
 // Note: Used on packages like graceful, after the server runs.
 func DisableKeepalive(val bool) {
@@ -620,7 +620,7 @@ func DisableKeepalive(val bool) {
 // The server will close all the incoming connections after sending
 // the first response to client if this option is set to true.
 //
-// By default keep-alive connections are enabled
+// # By default keep-alive connections are enabled
 //
 // Note: Used on packages like graceful, after the server runs.
 func (s *Framework) DisableKeepalive(val bool) {
@@ -1078,14 +1078,18 @@ func (s *Framework) TemplateString(templateFile string, pageContext interface{},
 }
 
 // TemplateSourceString executes a template source(raw string contents) from  the first template engines which supports raw parsing returns its result as string,
-//  useful when you want it for sending rich e-mails
+//
+//	useful when you want it for sending rich e-mails
+//
 // returns empty string on error
 func TemplateSourceString(src string, pageContext interface{}) string {
 	return Default.TemplateSourceString(src, pageContext)
 }
 
 // TemplateSourceString executes a template source(raw string contents) from  the first template engines which supports raw parsing returns its result as string,
-//  useful when you want it for sending rich e-mails
+//
+//	useful when you want it for sending rich e-mails
+//
 // returns empty string on error
 func (s *Framework) TemplateSourceString(src string, pageContext interface{}) string {
 	if s.Config.DisableTemplateEngines {
@@ -1613,10 +1617,9 @@ func (api *muxAPI) Any(registedPath string, handlersFn ...HandlerFunc) {
 //
 // For example:
 //
-//     * index.html
-//     * index.htm
-//     * my-super-index.xml
-//
+//   - index.html
+//   - index.htm
+//   - my-super-index.xml
 func StaticHandler(systemPath string, stripSlashes int, compress bool, generateIndexPages bool, indexNames []string) HandlerFunc {
 	return Default.StaticHandler(systemPath, stripSlashes, compress, generateIndexPages, indexNames)
 }
@@ -1655,10 +1658,9 @@ func StaticHandler(systemPath string, stripSlashes int, compress bool, generateI
 //
 // For example:
 //
-//     * index.html
-//     * index.htm
-//     * my-super-index.xml
-//
+//   - index.html
+//   - index.htm
+//   - my-super-index.xml
 func (api *muxAPI) StaticHandler(systemPath string, stripSlashes int, compress bool, generateIndexPages bool, indexNames []string) HandlerFunc {
 	if indexNames == nil {
 		indexNames = []string{}
@@ -2080,12 +2082,12 @@ func (api *muxAPI) Favicon(favPath string, requestPath ...string) RouteNameFunc 
 // returns this Party, to continue as normal
 // example:
 // my := iris.Party("/my").Layout("layouts/mylayout.html")
-// 	{
-// 		my.Get("/", func(ctx *iris.Context) {
-// 			ctx.MustRender("page1.html", nil)
-// 		})
-// 	}
 //
+//	{
+//		my.Get("/", func(ctx *iris.Context) {
+//			ctx.MustRender("page1.html", nil)
+//		})
+//	}
 func Layout(tmplLayoutFile string) MuxAPI {
 	return Default.Layout(tmplLayoutFile)
 }
@@ -2094,12 +2096,12 @@ func Layout(tmplLayoutFile string) MuxAPI {
 // returns this Party, to continue as normal
 // example:
 // my := iris.Party("/my").Layout("layouts/mylayout.html")
-// 	{
-// 		my.Get("/", func(ctx *iris.Context) {
-// 			ctx.MustRender("page1.html", nil)
-// 		})
-// 	}
 //
+//	{
+//		my.Get("/", func(ctx *iris.Context) {
+//			ctx.MustRender("page1.html", nil)
+//		})
+//	}
 func (api *muxAPI) Layout(tmplLayoutFile string) MuxAPI {
 	api.UseFunc(func(ctx *Context) {
 		ctx.Set(TemplateLayoutContextKey, tmplLayoutFile)
