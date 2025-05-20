@@ -61,6 +61,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"syscall"
 	"time"
 
 	"github.com/kataras/go-errors"
@@ -464,7 +465,7 @@ func (s *Framework) Serve(ln net.Listener) error {
 
 	go func() { s.Available <- true }()
 	ch := make(chan os.Signal, 1)
-	signal.Notify(ch, os.Interrupt)
+	signal.Notify(ch, os.Interrupt, syscall.SIGTERM)
 	<-ch
 	if err := s.Close(); err != nil {
 		if s.Config.IsDevelopment {
