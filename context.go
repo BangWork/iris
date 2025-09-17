@@ -1,6 +1,7 @@
 package iris
 
 import (
+	"context"
 	"bufio"
 	"encoding/base64"
 	"encoding/json"
@@ -100,12 +101,26 @@ type (
 		session    sessions.Session
 		// Pos is the position number of the Context, look .Next to understand
 		Pos uint8 // exported because is useful for debugging
+		goContext context.Context
 	}
 )
 
 // GetRequestCtx returns the current fasthttp context
 func (ctx *Context) GetRequestCtx() *fasthttp.RequestCtx {
 	return ctx.RequestCtx
+}
+
+// GetContext returns the Go context. Set by SetContext; if not set, returns ctx.RequestCtx.
+func (ctx *Context) GetContext() context.Context {
+	if ctx.goContext == nil {
+		return ctx.RequestCtx
+	}
+	return ctx.goContext
+}
+
+// SetContext sets goContext to the context returned by GetContext.
+func (ctx *Context) SetContext(goContext context.Context) {
+	ctx.goContext = goContext
 }
 
 // Do calls the first handler only, it's like Next with negative pos, used only on Router&MemoryRouter
